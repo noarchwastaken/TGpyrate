@@ -1,0 +1,4 @@
+nuitka
+paramiko
+psutil
+pyinstaller
